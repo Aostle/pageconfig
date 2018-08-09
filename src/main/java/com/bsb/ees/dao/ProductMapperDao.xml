@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bsb.ees.dao.ProductMapperDao" >
+  <resultMap id="BaseResultMap" type="com.bsb.ees.domain.ProductMapper" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="PROD_NO" property="prodNo" jdbcType="VARCHAR" />
+    <result column="TRANS_TYPE" property="transType" jdbcType="VARCHAR" />
+    <result column="PRODUCT_KEY" property="productKey" jdbcType="VARCHAR" />
+    <result column="SAVE_POINT" property="savePoint" jdbcType="VARCHAR" />
+    <result column="CREATE_DATETIME" property="createDatetime" jdbcType="TIMESTAMP" />
+    <result column="EXPIRATION_DATETIME" property="expirationDatetime" jdbcType="TIMESTAMP" />
+    <result column="CLIENT_FLAG" property="clientFlag" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, PROD_NO, TRANS_TYPE, PRODUCT_KEY, SAVE_POINT, CREATE_DATETIME, EXPIRATION_DATETIME, 
+    CLIENT_FLAG
+  </sql>
+  <select id="selectByCriteria" resultMap="BaseResultMap" parameterType="com.bsb.ees.domain.ProductMapperCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from product_mapper
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart},${pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from product_mapper
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from product_mapper
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByCriteria" parameterType="com.bsb.ees.domain.ProductMapperCriteria" >
+    delete from product_mapper
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bsb.ees.domain.ProductMapper" >
+        INSERT INTO product_mapper
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null"> id, </if>
+            <if test="pojo.prodNo != null"> prod_no, </if>
+            <if test="pojo.transType != null"> trans_type, </if>
+            <if test="pojo.productKey != null"> product_key, </if>
+            <if test="pojo.savePoint != null"> save_point, </if>
+            <if test="pojo.createDatetime != null"> create_datetime, </if>
+            <if test="pojo.expirationDatetime != null"> expiration_datetime, </if>
+            <if test="pojo.clientFlag != null"> client_flag, </if>
+            <if test="pojo.simpleName != null"> simple_name, </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null"> #{pojo.id}, </if>
+            <if test="pojo.prodNo != null"> #{pojo.prodNo}, </if>
+            <if test="pojo.transType != null"> #{pojo.transType}, </if>
+            <if test="pojo.productKey != null"> #{pojo.productKey}, </if>
+            <if test="pojo.savePoint != null"> #{pojo.savePoint}, </if>
+            <if test="pojo.createDatetime != null"> #{pojo.createDatetime}, </if>
+            <if test="pojo.expirationDatetime != null"> #{pojo.expirationDatetime}, </if>
+            <if test="pojo.clientFlag != null"> #{pojo.clientFlag}, </if>
+            <if test="pojo.simpleName != null"> #{pojo.simpleName}, </if>
+        </trim>
+  </insert>
+  <insert id="insertSelective" parameterType="com.bsb.ees.domain.ProductMapper" >
+    insert into product_mapper
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="prodNo != null" >
+        PROD_NO,
+      </if>
+      <if test="transType != null" >
+        TRANS_TYPE,
+      </if>
+      <if test="productKey != null" >
+        PRODUCT_KEY,
+      </if>
+      <if test="savePoint != null" >
+        SAVE_POINT,
+      </if>
+      <if test="createDatetime != null" >
+        CREATE_DATETIME,
+      </if>
+      <if test="expirationDatetime != null" >
+        EXPIRATION_DATETIME,
+      </if>
+      <if test="clientFlag != null" >
+        CLIENT_FLAG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="prodNo != null" >
+        #{prodNo,jdbcType=VARCHAR},
+      </if>
+      <if test="transType != null" >
+        #{transType,jdbcType=VARCHAR},
+      </if>
+      <if test="productKey != null" >
+        #{productKey,jdbcType=VARCHAR},
+      </if>
+      <if test="savePoint != null" >
+        #{savePoint,jdbcType=VARCHAR},
+      </if>
+      <if test="createDatetime != null" >
+        #{createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expirationDatetime != null" >
+        #{expirationDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clientFlag != null" >
+        #{clientFlag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByCriteria" parameterType="com.bsb.ees.domain.ProductMapperCriteria" resultType="java.lang.Integer" >
+    select count(1) from product_mapper
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByCriteriaSelective" parameterType="map" >
+    update product_mapper
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.prodNo != null" >
+        PROD_NO = #{record.prodNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transType != null" >
+        TRANS_TYPE = #{record.transType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productKey != null" >
+        PRODUCT_KEY = #{record.productKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.savePoint != null" >
+        SAVE_POINT = #{record.savePoint,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDatetime != null" >
+        CREATE_DATETIME = #{record.createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.expirationDatetime != null" >
+        EXPIRATION_DATETIME = #{record.expirationDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.clientFlag != null" >
+        CLIENT_FLAG = #{record.clientFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByCriteria" parameterType="map" >
+    update product_mapper
+    set ID = #{record.id,jdbcType=INTEGER},
+    PROD_NO = #{record.prodNo,jdbcType=VARCHAR},
+    TRANS_TYPE = #{record.transType,jdbcType=VARCHAR},
+    PRODUCT_KEY = #{record.productKey,jdbcType=VARCHAR},
+    SAVE_POINT = #{record.savePoint,jdbcType=VARCHAR},
+    CREATE_DATETIME = #{record.createDatetime,jdbcType=TIMESTAMP},
+    EXPIRATION_DATETIME = #{record.expirationDatetime,jdbcType=TIMESTAMP},
+    CLIENT_FLAG = #{record.clientFlag,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bsb.ees.domain.ProductMapper" >
+    update product_mapper
+    <set >
+      <if test="prodNo != null" >
+        PROD_NO = #{prodNo,jdbcType=VARCHAR},
+      </if>
+      <if test="transType != null" >
+        TRANS_TYPE = #{transType,jdbcType=VARCHAR},
+      </if>
+      <if test="productKey != null" >
+        PRODUCT_KEY = #{productKey,jdbcType=VARCHAR},
+      </if>
+      <if test="savePoint != null" >
+        SAVE_POINT = #{savePoint,jdbcType=VARCHAR},
+      </if>
+      <if test="createDatetime != null" >
+        CREATE_DATETIME = #{createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expirationDatetime != null" >
+        EXPIRATION_DATETIME = #{expirationDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clientFlag != null" >
+        CLIENT_FLAG = #{clientFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bsb.ees.domain.ProductMapper" >
+    update product_mapper
+    set PROD_NO = #{prodNo,jdbcType=VARCHAR},
+      TRANS_TYPE = #{transType,jdbcType=VARCHAR},
+      PRODUCT_KEY = #{productKey,jdbcType=VARCHAR},
+      SAVE_POINT = #{savePoint,jdbcType=VARCHAR},
+      CREATE_DATETIME = #{createDatetime,jdbcType=TIMESTAMP},
+      EXPIRATION_DATETIME = #{expirationDatetime,jdbcType=TIMESTAMP},
+      CLIENT_FLAG = #{clientFlag,jdbcType=CHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+    <resultMap id="AllColumnMap" type="com.bsb.ees.domain.ProductMapper">
+        <result column="id" property="id"/>
+        <result column="prod_no" property="prodNo"/>
+        <result column="trans_type" property="transType"/>
+        <result column="product_key" property="productKey"/>
+        <result column="save_point" property="savePoint"/>
+        <result column="create_datetime" property="createDatetime"/>
+        <result column="expiration_datetime" property="expirationDatetime"/>
+        <result column="client_flag" property="clientFlag"/>
+        <result column="simple_name" property="simpleName"/>
+    </resultMap>
+    <sql id="all_column">
+        id,
+        prod_no,
+        trans_type,
+        product_key,
+        save_point,
+        create_datetime,
+        expiration_datetime,
+        client_flag,
+        simple_name
+    </sql>
+    <insert id="insertList">
+        INSERT INTO product_mapper(
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.prodNo},
+            #{pojo.transType},
+            #{pojo.productKey},
+            #{pojo.savePoint},
+            #{pojo.createDatetime},
+            #{pojo.expirationDatetime},
+            #{pojo.clientFlag},
+            #{pojo.simpleName}
+            )
+        </foreach>
+    </insert>
+    <update id="update">
+        UPDATE product_mapper
+        <set>
+            <if test="pojo.id != null"> id = #{pojo.id}, </if>
+            <if test="pojo.prodNo != null"> prod_no = #{pojo.prodNo}, </if>
+            <if test="pojo.transType != null"> trans_type = #{pojo.transType}, </if>
+            <if test="pojo.productKey != null"> product_key = #{pojo.productKey}, </if>
+            <if test="pojo.savePoint != null"> save_point = #{pojo.savePoint}, </if>
+            <if test="pojo.createDatetime != null"> create_datetime = #{pojo.createDatetime}, </if>
+            <if test="pojo.expirationDatetime != null"> expiration_datetime = #{pojo.expirationDatetime}, </if>
+            <if test="pojo.clientFlag != null"> client_flag = #{pojo.clientFlag}, </if>
+            <if test="pojo.simpleName != null"> simple_name = #{pojo.simpleName} </if>
+        </set>
+         WHERE id = #{pojo.id}
+    </update>
+    <select id="select" resultMap="AllColumnMap">
+        SELECT <include refid="all_column"/>
+        FROM product_mapper
+        <where>
+            <if test="pojo.id != null"> AND id = #{pojo.id} </if>
+            <if test="pojo.prodNo != null"> AND prod_no = #{pojo.prodNo} </if>
+            <if test="pojo.transType != null"> AND trans_type = #{pojo.transType} </if>
+            <if test="pojo.productKey != null"> AND product_key = #{pojo.productKey} </if>
+            <if test="pojo.savePoint != null"> AND save_point = #{pojo.savePoint} </if>
+            <if test="pojo.createDatetime != null"> AND create_datetime = #{pojo.createDatetime} </if>
+            <if test="pojo.expirationDatetime != null"> AND expiration_datetime = #{pojo.expirationDatetime} </if>
+            <if test="pojo.clientFlag != null"> AND client_flag = #{pojo.clientFlag} </if>
+            <if test="pojo.simpleName != null"> AND simple_name = #{pojo.simpleName} </if>
+        </where>
+        LIMIT 1000 
+    </select>
+</mapper>
